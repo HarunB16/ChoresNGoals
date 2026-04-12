@@ -44,7 +44,7 @@ Start the Spring Boot backend:
 
 ```bash
 cd backend
-mvn spring-boot:run
+JWT_SECRET=replace-with-at-least-32-characters mvn spring-boot:run
 ```
 
 Verify the backend health endpoint:
