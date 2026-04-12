@@ -2,6 +2,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { LoginScreen } from "../features/auth/screens/LoginScreen";
 import { RegisterScreen } from "../features/auth/screens/RegisterScreen";
+import { AddChildScreen } from "../features/children/screens/AddChildScreen";
+import { ChildrenScreen } from "../features/children/screens/ChildrenScreen";
 import { ParentDashboardScreen } from "../features/parent/screens/ParentDashboardScreen";
 import { WelcomeScreen } from "../features/welcome/screens/WelcomeScreen";
 
@@ -10,6 +12,8 @@ export type RootStackParamList = {
   Login: { registeredEmail?: string } | undefined;
   Register: undefined;
   ParentDashboard: undefined;
+  Children: undefined;
+  AddChild: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -36,6 +40,16 @@ export function RootNavigator() {
         name="ParentDashboard"
         component={ParentDashboardScreen}
         options={{ title: "Parent Dashboard" }}
+      />
+      <Stack.Screen
+        name="Children"
+        component={ChildrenScreen}
+        options={{ title: "Children" }}
+      />
+      <Stack.Screen
+        name="AddChild"
+        component={AddChildScreen}
+        options={{ title: "Add Child" }}
       />
     </Stack.Navigator>
   );

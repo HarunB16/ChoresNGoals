@@ -1,182 +1,80 @@
 # AGENTS.md
 
-## Project overview
+## Mission
 
-This project is a secure cross-platform parent-child planning app for Android and iOS.
+Build the project incrementally.
+Do not attempt full-project implementation in one pass.
 
-Main purpose:
+## Product
 
-* parents manage their children’s schedules
-* parents assign tasks and goals
-* children can accept or reject tasks
-* children earn points for completed tasks and achieved goals
-* both parent and child receive notifications
-* the app should support home-screen widgets
+A secure parent-child task tracking app for iOS and Android.
+
+## Main features
+
+* Parent authentication
+* Child profile management
+* Daily / weekly / monthly planning
+* Task and goal assignment
+* Child accepts or rejects tasks
+* Points and rewards logic
+* Notifications for parent and child
+* Widget support
+* Secure backend and API design
 
 ## Tech stack
 
-Preferred stack:
+* Mobile: React Native + Expo
+* Backend: Spring Boot
+* Database: PostgreSQL
+* Auth: JWT + refresh token
+* Push notifications: Firebase Cloud Messaging
 
-* Flutter for mobile app
-* Dart as mobile language
-* ASP.NET Core Web API for backend
-* C# as backend language
-* PostgreSQL as database
-* Riverpod for Flutter state management
-* Clean Architecture for backend
-* REST API
-* Firebase Cloud Messaging for notifications
+## Working style
 
-Do not change the stack unless there is a strong technical reason.
+* One task at a time
+* Each task must be small and executable
+* Prefer minimal working code over broad unfinished scaffolding
+* Do not redesign unrelated parts of the system
+* Keep naming consistent
+* Keep modules clean and simple
 
-## Engineering priorities
+## Mandatory workflow for each task
 
-Prioritize in this order:
+1. Understand the single task only
+2. State assumptions briefly
+3. List files to change
+4. Implement only that task
+5. Provide short run/test instructions
+6. Suggest the next small task
 
-1. security
-2. clean architecture
-3. consistency between backend and frontend
-4. readable production-style code
-5. minimal unnecessary dependencies
+## Forbidden behavior
 
-## Product rules
+* Do not build the whole app in one response
+* Do not create speculative features not requested
+* Do not produce huge boilerplate without execution value
+* Do not enter long planning loops
+* Do not modify unrelated files
 
-There are two roles:
+## Preferred architecture
 
-* Parent
-* Child
+* Separate mobile and backend folders
+* Backend should use layered architecture:
 
-Parent can:
+  * controller
+  * service
+  * repository
+  * dto
+  * entity
+  * security
+* Mobile should use feature-based folders when possible
 
-* create and manage children
-* create daily, weekly, and monthly schedules
-* assign tasks and goals
-* view points and completion status
+## Quality bar
 
-Child can:
+* Code should compile or be close to runnable
+* Keep logic readable
+* Add comments only where useful
+* Prefer simple implementations first, then iterate
 
-* view own schedule
-* accept or reject assigned tasks
-* view own goals
-* view own points
+## If task is too large
 
-## Security rules
-
-Always enforce:
-
-* authentication for protected endpoints
-* role-based authorization
-* parent ownership checks for child resources
-* input validation
-* no hardcoded secrets
-* secure token handling
-* audit-friendly logging
-* HTTPS-ready configuration
-
-## Architecture rules
-
-### Mobile
-
-* use feature-based folder structure
-* use Riverpod for state management
-* keep UI, domain, and data concerns separated
-* avoid business logic inside widgets
-
-### Backend
-
-* use Clean Architecture
-* separate Domain, Application, Infrastructure, and API layers
-* use DTOs for API contracts
-* keep controllers thin
-* place business logic in services/use cases
-
-## Data model expectations
-
-The solution should include entities similar to:
-
-* User
-* ParentProfile
-* ChildProfile
-* Family or ParentChildLink
-* Schedule
-* ScheduleItem
-* Task
-* TaskResponse
-* Goal
-* GoalProgress
-* PointsTransaction
-* NotificationRecord
-* DeviceToken
-
-## API expectations
-
-Create clear REST endpoints for:
-
-* auth
-* parent profile
-* child management
-* schedule management
-* task management
-* goal management
-* points history
-* notifications
-
-Keep request and response models explicit.
-
-## Widget expectations
-
-Support widget architecture for:
-
-* today’s schedule
-* pending tasks
-* current points
-
-If native platform code is required:
-
-* keep Flutter code separate from Android/iOS widget integration
-* document the bridge points clearly
-
-## Workflow instructions
-
-When implementing features:
-
-1. explain the plan briefly
-2. create the backend pieces first when needed
-3. keep frontend consistent with backend contracts
-4. update documentation when architecture changes
-5. add tests for important backend logic
-
-## Code style
-
-* use clear names
-* avoid overly short variable names
-* prefer maintainable code over clever code
-* add comments only when useful
-* avoid dead code and placeholders with no integration
-
-## Validation steps
-
-Before finishing a task:
-
-* verify project builds
-* verify backend runs
-* verify main API contracts are consistent
-* verify no obvious authorization holes exist
-* verify no secrets are committed
-
-## Delivery expectations
-
-When asked to build features, produce:
-
-* implementation plan
-* file changes
-* code
-* setup steps
-* short explanation of decisions
-
-## Do not
-
-* do not invent disconnected placeholder code
-* do not leave frontend and backend inconsistent
-* do not skip security checks
-* do not add unnecessary libraries without justification
+Break it into 3-5 smaller tasks and stop.

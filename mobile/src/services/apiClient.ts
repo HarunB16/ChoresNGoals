@@ -12,19 +12,25 @@ export class ApiError extends Error {
   }
 }
 
-export async function getJson<TResponse>(path: string): Promise<TResponse> {
+export async function getJson<TResponse>(
+  path: string,
+  headers?: HeadersInit
+): Promise<TResponse> {
   return requestJson<TResponse>(path, {
-    method: "GET"
+    method: "GET",
+    headers
   });
 }
 
 export async function postJson<TResponse>(
   path: string,
-  body: JsonBody
+  body: JsonBody,
+  headers?: HeadersInit
 ): Promise<TResponse> {
   return requestJson<TResponse>(path, {
     method: "POST",
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
+    headers
   });
 }
 
