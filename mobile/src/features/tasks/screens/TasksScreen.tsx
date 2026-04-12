@@ -242,7 +242,7 @@ export function TasksScreen({ route }: Props) {
                   <Text style={styles.taskDescription}>{task.description}</Text>
                 ) : null}
                 <Text style={styles.taskMeta}>
-                  {formatTaskType(task.type)} · {task.status} · due {task.dueDate}
+                  {formatTaskType(task.type)} - {task.status} - due {task.dueDate}
                 </Text>
               </View>
             ))
@@ -258,7 +258,7 @@ function isValidDateInput(value: string): boolean {
   }
 
   const parsedDate = new Date(`${value}T00:00:00`);
-  return !Number.isNaN(parsedDate.getTime());
+  return !Number.isNaN(parsedDate.getTime()) && value === parsedDate.toISOString().slice(0, 10);
 }
 
 function formatTaskType(value: TaskType): string {
