@@ -85,7 +85,16 @@ export function ChildrenScreen({ navigation }: Props) {
           keyExtractor={(child) => child.id}
           contentContainerStyle={styles.list}
           renderItem={({ item }) => (
-            <View style={styles.childRow}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.childRow,
+                pressed ? styles.childRowPressed : null
+              ]}
+              onPress={() => navigation.navigate("Tasks", {
+                childId: item.id,
+                childName: item.name
+              })}
+            >
               <View
                 style={[
                   styles.avatar,
@@ -98,7 +107,8 @@ export function ChildrenScreen({ navigation }: Props) {
                 <Text style={styles.childName}>{item.name}</Text>
                 <Text style={styles.childMeta}>Born {item.birthYear}</Text>
               </View>
-            </View>
+              <Text style={styles.openText}>Tasks</Text>
+            </Pressable>
           )}
         />
       ) : null}
@@ -200,6 +210,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 14
   },
+  childRowPressed: {
+    opacity: 0.7
+  },
   avatar: {
     alignItems: "center",
     borderRadius: 8,
@@ -225,5 +238,10 @@ const styles = StyleSheet.create({
     color: "#6b7280",
     fontSize: 14,
     marginTop: 4
+  },
+  openText: {
+    color: "#2563eb",
+    fontSize: 14,
+    fontWeight: "700"
   }
 });
