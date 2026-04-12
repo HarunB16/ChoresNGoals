@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Chores N Goals",
+    "slug": "choresngoals",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "platforms": ["ios", "android"],
+    "assetBundlePatterns": ["**/*"]
+  }
+}

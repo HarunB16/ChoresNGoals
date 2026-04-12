@@ -1,0 +1,12 @@
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/ChoresNGoalsApplication.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/config/ApiExceptionHandler.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/controller/HealthController.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/controller/ParentAuthController.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/dto/RegisterParentRequest.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/dto/UserResponse.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/User.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/UserRole.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/repository/UserRepository.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/security/PasswordConfig.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/DuplicateEmailException.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/ParentRegistrationService.java

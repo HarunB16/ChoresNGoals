@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: choresngoals-backend
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  database:
+    provider: postgresql
+    host: ${POSTGRES_HOST:localhost}
+    port: ${POSTGRES_PORT:5432}
+    database: ${POSTGRES_DB:choresngoals}
+    username: ${POSTGRES_USER:choresngoals}
+    password: ${POSTGRES_PASSWORD:change-me}
