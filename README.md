@@ -15,6 +15,7 @@ Parent-child task tracking app monorepo.
 
 - Java 21
 - Maven
+- Docker and Docker Compose
 - Node 20.19.4 or newer
 - npm
 - Expo Go on your phone
@@ -22,6 +23,22 @@ Parent-child task tracking app monorepo.
 The mobile app currently uses Expo SDK 54, which requires Node 20.19.4 or newer for the local development server.
 
 ## Backend
+
+Start PostgreSQL:
+
+```bash
+docker compose up -d postgres
+```
+
+The local PostgreSQL defaults are:
+
+```text
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=choresngoals
+POSTGRES_USER=choresngoals
+POSTGRES_PASSWORD=change-me
+```
 
 Start the Spring Boot backend:
 
@@ -126,4 +143,10 @@ If `.env.local` changes, restart Expo:
 
 ```bash
 npx expo start --clear --lan --port 19000
+```
+
+If `mvn spring-boot:run` fails with `Connection to localhost:5432 refused`, start PostgreSQL first:
+
+```bash
+docker compose up -d postgres
 ```
