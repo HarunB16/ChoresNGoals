@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.choresngoals.service.DuplicateEmailException;
+import com.choresngoals.service.InvalidCredentialsException;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
@@ -18,6 +19,12 @@ public class ApiExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleDuplicateEmail(DuplicateEmailException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ApiErrorResponse.of(HttpStatus.CONFLICT, exception.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ApiErrorResponse> handleInvalidCredentials(InvalidCredentialsException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ApiErrorResponse.of(HttpStatus.UNAUTHORIZED, exception.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
