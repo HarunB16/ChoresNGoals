@@ -1,12 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { LoginScreen } from "../features/auth/screens/LoginScreen";
+import { RegisterScreen } from "../features/auth/screens/RegisterScreen";
 import { ParentDashboardScreen } from "../features/parent/screens/ParentDashboardScreen";
 import { WelcomeScreen } from "../features/welcome/screens/WelcomeScreen";
 
 export type RootStackParamList = {
   Welcome: undefined;
-  Login: undefined;
+  Login: { registeredEmail?: string } | undefined;
+  Register: undefined;
   ParentDashboard: undefined;
 };
 
@@ -24,6 +26,11 @@ export function RootNavigator() {
         name="Login"
         component={LoginScreen}
         options={{ title: "Log in" }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ title: "Create account" }}
       />
       <Stack.Screen
         name="ParentDashboard"

@@ -13,26 +13,37 @@ import {
 
 import type { RootStackParamList } from "../../../navigation/RootNavigator";
 import { ApiError } from "../../../services/apiClient";
-import { loginParent } from "../services/authApi";
-import { saveAccessToken } from "../services/tokenStorage";
+import { registerParent } from "../services/authApi";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
-export function LoginScreen({ navigation, route }: Props) {
-  const [email, setEmail] = useState(route.params?.registeredEmail ?? "");
+export function RegisterScreen({ navigation }: Props) {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullNameError, setFullNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [formError, setFormError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function handleLogin() {
+  async function handleRegister() {
+    setFullNameError("");
     setEmailError("");
     setPasswordError("");
     setFormError("");
 
+    const trimmedFullName = fullName.trim();
     const normalizedEmail = email.trim().toLowerCase();
     let hasValidationError = false;
+
+    if (!trimmedFullName) {
+      setFullNameError("Full name is required.");
+      hasValidationError = true;
+    } else if (trimmedFullName.length < 2) {
+      setFullNameError("Full name must be at least 2 characters.");
+      hasValidationError = true;
+    }
 
     if (!normalizedEmail) {
       setEmailError("Email is required.");
@@ -45,6 +56,9 @@ export function LoginScreen({ navigation, route }: Props) {
     if (!password) {
       setPasswordError("Password is required.");
       hasValidationError = true;
+    } else if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters.");
+      hasValidationError = true;
     }
 
     if (hasValidationError) {
@@ -53,18 +67,18 @@ export function LoginScreen({ navigation, route }: Props) {
 
     try {
       setIsSubmitting(true);
-      const response = await loginParent({
+      await registerParent({
+        fullName: trimmedFullName,
         email: normalizedEmail,
         password
       });
 
-      await saveAccessToken(response.accessToken);
-      navigation.replace("ParentDashboard");
+      navigation.replace("Login", { registeredEmail: normalizedEmail });
     } catch (error) {
-      if (error instanceof ApiError && error.status === 401) {
-        setFormError("Email or password is incorrect.");
+      if (error instanceof ApiError && error.status === 409) {
+        setFormError("An account with this email already exists.");
       } else {
-        setFormError("Could not log in. Check your connection and try again.");
+        setFormError("Could not create your account. Check your connection and try again.");
       }
     } finally {
       setIsSubmitting(false);
@@ -77,10 +91,21 @@ export function LoginScreen({ navigation, route }: Props) {
       style={styles.container}
     >
       <View style={styles.form}>
-        <Text style={styles.title}>Log in</Text>
-        <Text style={styles.subtitle}>Use your parent account to continue.</Text>
+        <Text style={styles.title}>Create account</Text>
+        <Text style={styles.subtitle}>Set up a parent account to manage family tasks.</Text>
 
         {formError ? <Text style={styles.formError}>{formError}</Text> : null}
+
+        <Text style={styles.label}>Full name</Text>
+        <TextInput
+          style={[styles.input, fullNameError ? styles.inputError : null]}
+          placeholder="Your name"
+          autoCapitalize="words"
+          textContentType="name"
+          value={fullName}
+          onChangeText={setFullName}
+        />
+        {fullNameError ? <Text style={styles.fieldError}>{fullNameError}</Text> : null}
 
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -98,10 +123,10 @@ export function LoginScreen({ navigation, route }: Props) {
         <Text style={styles.label}>Password</Text>
         <TextInput
           style={[styles.input, passwordError ? styles.inputError : null]}
-          placeholder="Password"
+          placeholder="At least 8 characters"
           autoCapitalize="none"
           secureTextEntry
-          textContentType="password"
+          textContentType="newPassword"
           value={password}
           onChangeText={setPassword}
         />
@@ -113,21 +138,21 @@ export function LoginScreen({ navigation, route }: Props) {
             pressed || isSubmitting ? styles.buttonPressed : null
           ]}
           disabled={isSubmitting}
-          onPress={handleLogin}
+          onPress={handleRegister}
         >
           {isSubmitting ? (
             <ActivityIndicator color="#ffffff" />
           ) : (
-            <Text style={styles.buttonText}>Log in</Text>
+            <Text style={styles.buttonText}>Create account</Text>
           )}
         </Pressable>
 
         <Pressable
           style={styles.linkButton}
           disabled={isSubmitting}
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("Login")}
         >
-          <Text style={styles.linkText}>Create a parent account</Text>
+          <Text style={styles.linkText}>Already have an account? Log in</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>

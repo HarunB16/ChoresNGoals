@@ -48,7 +48,15 @@ export function WelcomeScreen({ navigation }: Props) {
       <Text style={styles.apiText}>API: {API_BASE_URL}</Text>
       <Text style={[styles.healthText, styles[healthStatus]]}>{healthMessage}</Text>
       <Pressable style={styles.button} onPress={() => navigation.navigate("Login")}>
-        <Text style={styles.buttonText}>Continue</Text>
+        <Text style={styles.buttonText}>Log in</Text>
+      </Pressable>
+      <Pressable
+        style={[styles.button, styles.secondaryButton]}
+        onPress={() => navigation.navigate("Register")}
+      >
+        <Text style={[styles.buttonText, styles.secondaryButtonText]}>
+          Create account
+        </Text>
       </Pressable>
     </View>
   );

@@ -5,6 +5,12 @@ export type LoginCredentials = {
   password: string;
 };
 
+export type RegisterParentInput = {
+  fullName: string;
+  email: string;
+  password: string;
+};
+
 export type AuthenticatedParent = {
   id: string;
   fullName: string;
@@ -23,4 +29,8 @@ export type LoginResponse = {
 
 export function loginParent(credentials: LoginCredentials): Promise<LoginResponse> {
   return postJson<LoginResponse>("/api/auth/parents/login", credentials);
+}
+
+export function registerParent(input: RegisterParentInput): Promise<AuthenticatedParent> {
+  return postJson<AuthenticatedParent>("/api/auth/parents/register", input);
 }
