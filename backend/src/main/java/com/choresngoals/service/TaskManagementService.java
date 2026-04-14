@@ -9,10 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.choresngoals.dto.CreateTaskRequest;
 import com.choresngoals.dto.TaskResponse;
 import com.choresngoals.entity.Child;
+import com.choresngoals.entity.Family;
 import com.choresngoals.entity.Task;
+import com.choresngoals.entity.User;
 import com.choresngoals.entity.UserRole;
 import com.choresngoals.repository.ChildRepository;
 import com.choresngoals.repository.TaskRepository;
+import com.choresngoals.repository.UserRepository;
 import com.choresngoals.security.AuthenticatedUser;
 
 @Service
@@ -20,17 +23,27 @@ public class TaskManagementService {
 
     private final ChildRepository childRepository;
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+    private final FamilyStructureService familyStructureService;
 
-    public TaskManagementService(ChildRepository childRepository, TaskRepository taskRepository) {
+    public TaskManagementService(
+            ChildRepository childRepository,
+            TaskRepository taskRepository,
+            UserRepository userRepository,
+            FamilyStructureService familyStructureService
+    ) {
         this.childRepository = childRepository;
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+        this.familyStructureService = familyStructureService;
     }
 
     @Transactional
     public TaskResponse createTask(AuthenticatedUser authenticatedUser, UUID childId, CreateTaskRequest request) {
         ensureParent(authenticatedUser);
+        Family family = ensureParentFamily(authenticatedUser);
 
-        Child child = childRepository.findByIdAndParentId(childId, authenticatedUser.id())
+        Child child = childRepository.findByIdAndFamilyId(childId, family.getId())
                 .orElseThrow(() -> new ChildNotFoundException("Child was not found"));
 
         Task task = new Task(
@@ -45,12 +58,13 @@ public class TaskManagementService {
         return toResponse(taskRepository.save(task));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public List<TaskResponse> listTasks(AuthenticatedUser authenticatedUser, UUID childId) {
         ensureParent(authenticatedUser);
-        ensureChildBelongsToParent(childId, authenticatedUser.id());
+        Family family = ensureParentFamily(authenticatedUser);
+        ensureChildBelongsToFamily(childId, family.getId());
 
-        return taskRepository.findAllByChildIdAndChildParentIdOrderByCreatedAtDesc(childId, authenticatedUser.id())
+        return taskRepository.findAllByChildIdAndChildFamilyIdOrderByCreatedAtDesc(childId, family.getId())
                 .stream()
                 .map(this::toResponse)
                 .toList();
@@ -62,8 +76,15 @@ public class TaskManagementService {
         }
     }
 
-    private void ensureChildBelongsToParent(UUID childId, UUID parentId) {
-        if (childRepository.findByIdAndParentId(childId, parentId).isEmpty()) {
+    private Family ensureParentFamily(AuthenticatedUser authenticatedUser) {
+        User parent = userRepository.findById(authenticatedUser.id())
+                .orElseThrow(() -> new ForbiddenOperationException("Authenticated parent was not found"));
+
+        return familyStructureService.ensureFamilyForParentWithChildren(parent);
+    }
+
+    private void ensureChildBelongsToFamily(UUID childId, UUID familyId) {
+        if (childRepository.findByIdAndFamilyId(childId, familyId).isEmpty()) {
             throw new ChildNotFoundException("Child was not found");
         }
     }

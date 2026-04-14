@@ -12,5 +12,9 @@ public interface ChildRepository extends JpaRepository<Child, UUID> {
 
     List<Child> findAllByParentIdOrderByCreatedAtDesc(UUID parentId);
 
+    List<Child> findAllByFamilyIdOrderByCreatedAtDesc(UUID familyId);
+
     Optional<Child> findByIdAndParentId(UUID id, UUID parentId);
+
+    Optional<Child> findByIdAndFamilyId(UUID id, UUID familyId);
 }

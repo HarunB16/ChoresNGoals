@@ -10,4 +10,6 @@ import com.choresngoals.entity.Task;
 public interface TaskRepository extends JpaRepository<Task, UUID> {
 
     List<Task> findAllByChildIdAndChildParentIdOrderByCreatedAtDesc(UUID childId, UUID parentId);
+
+    List<Task> findAllByChildIdAndChildFamilyIdOrderByCreatedAtDesc(UUID childId, UUID familyId);
 }

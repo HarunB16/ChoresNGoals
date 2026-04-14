@@ -60,9 +60,9 @@ public class ChildManagementService {
     @Transactional
     public List<ChildResponse> listChildren(AuthenticatedUser authenticatedUser) {
         ensureParent(authenticatedUser);
-        migrateExistingChildren(authenticatedUser);
+        Family family = ensureParentFamily(authenticatedUser);
 
-        return childRepository.findAllByParentIdOrderByCreatedAtDesc(authenticatedUser.id())
+        return childRepository.findAllByFamilyIdOrderByCreatedAtDesc(family.getId())
                 .stream()
                 .map(this::toResponse)
                 .toList();
@@ -71,9 +71,9 @@ public class ChildManagementService {
     @Transactional
     public ChildResponse getChild(AuthenticatedUser authenticatedUser, UUID childId) {
         ensureParent(authenticatedUser);
-        migrateExistingChildren(authenticatedUser);
+        Family family = ensureParentFamily(authenticatedUser);
 
-        Child child = childRepository.findByIdAndParentId(childId, authenticatedUser.id())
+        Child child = childRepository.findByIdAndFamilyId(childId, family.getId())
                 .orElseThrow(() -> new ChildNotFoundException("Child was not found"));
 
         return toResponse(child);
@@ -85,11 +85,11 @@ public class ChildManagementService {
         }
     }
 
-    private void migrateExistingChildren(AuthenticatedUser authenticatedUser) {
+    private Family ensureParentFamily(AuthenticatedUser authenticatedUser) {
         User parent = userRepository.findById(authenticatedUser.id())
                 .orElseThrow(() -> new ForbiddenOperationException("Authenticated parent was not found"));
 
-        familyStructureService.ensureFamilyForParentWithChildren(parent);
+        return familyStructureService.ensureFamilyForParentWithChildren(parent);
     }
 
     private void validateBirthYear(Integer birthYear) {
