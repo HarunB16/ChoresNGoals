@@ -10,6 +10,7 @@ import com.choresngoals.dto.AuthResponse;
 import com.choresngoals.dto.LoginRequest;
 import com.choresngoals.dto.UserResponse;
 import com.choresngoals.entity.User;
+import com.choresngoals.entity.UserRole;
 import com.choresngoals.repository.UserRepository;
 import com.choresngoals.security.JwtTokenService;
 
@@ -41,6 +42,10 @@ public class ParentAuthenticationService {
         String email = normalizeEmail(request.email());
         User user = userRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid email or password"));
+
+        if (user.getRole() != UserRole.PARENT) {
+            throw new InvalidCredentialsException("Invalid email or password");
+        }
 
         if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
             throw new InvalidCredentialsException("Invalid email or password");

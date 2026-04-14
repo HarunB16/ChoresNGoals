@@ -89,4 +89,8 @@ public class ChildInvitation {
     public Instant getCreatedAt() {
         return createdAt;
     }
+
+    public void markUsed() {
+        this.status = ChildInvitationStatus.USED;
+    }
 }
