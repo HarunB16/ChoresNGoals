@@ -20,17 +20,20 @@ public class ParentAuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenService jwtTokenService;
     private final RefreshTokenService refreshTokenService;
+    private final FamilyStructureService familyStructureService;
 
     public ParentAuthenticationService(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             JwtTokenService jwtTokenService,
-            RefreshTokenService refreshTokenService
+            RefreshTokenService refreshTokenService,
+            FamilyStructureService familyStructureService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenService = jwtTokenService;
         this.refreshTokenService = refreshTokenService;
+        this.familyStructureService = familyStructureService;
     }
 
     @Transactional
@@ -42,6 +45,8 @@ public class ParentAuthenticationService {
         if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
             throw new InvalidCredentialsException("Invalid email or password");
         }
+
+        familyStructureService.ensureFamilyForParentWithChildren(user);
 
         String accessToken = jwtTokenService.generateAccessToken(user);
         String refreshToken = refreshTokenService.createRefreshToken(user);

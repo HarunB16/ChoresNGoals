@@ -14,6 +14,9 @@
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/dto/TaskResponse.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/dto/UserResponse.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/Child.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/Family.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/FamilyMembership.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/FamilyRole.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/RefreshToken.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/Task.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/TaskStatus.java
@@ -21,6 +24,8 @@
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/User.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/entity/UserRole.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/repository/ChildRepository.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/repository/FamilyMembershipRepository.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/repository/FamilyRepository.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/repository/RefreshTokenRepository.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/repository/TaskRepository.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/repository/UserRepository.java
@@ -34,6 +39,7 @@
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/ChildManagementService.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/ChildNotFoundException.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/DuplicateEmailException.java
+/home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/FamilyStructureService.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/ForbiddenOperationException.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/InvalidCredentialsException.java
 /home/harun/choresngoals/backend/src/main/java/com/choresngoals/service/ParentAuthenticationService.java

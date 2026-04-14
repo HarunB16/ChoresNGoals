@@ -26,6 +26,10 @@ public class Child {
     @JoinColumn(name = "parent_id", nullable = false)
     private User parent;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "family_id")
+    private Family family;
+
     @Column(nullable = false, length = 120)
     private String name;
 
@@ -42,7 +46,12 @@ public class Child {
     }
 
     public Child(User parent, String name, Integer birthYear, String avatarColor) {
+        this(parent, null, name, birthYear, avatarColor);
+    }
+
+    public Child(User parent, Family family, String name, Integer birthYear, String avatarColor) {
         this.parent = parent;
+        this.family = family;
         this.name = name;
         this.birthYear = birthYear;
         this.avatarColor = avatarColor;
@@ -61,6 +70,14 @@ public class Child {
 
     public User getParent() {
         return parent;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     public String getName() {
