@@ -4,6 +4,7 @@ import { LoginScreen } from "../features/auth/screens/LoginScreen";
 import { RegisterScreen } from "../features/auth/screens/RegisterScreen";
 import { AddChildScreen } from "../features/children/screens/AddChildScreen";
 import { ChildrenScreen } from "../features/children/screens/ChildrenScreen";
+import { InviteChildScreen } from "../features/invitations/screens/InviteChildScreen";
 import { ParentDashboardScreen } from "../features/parent/screens/ParentDashboardScreen";
 import { TasksScreen } from "../features/tasks/screens/TasksScreen";
 import { WelcomeScreen } from "../features/welcome/screens/WelcomeScreen";
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   ParentDashboard: undefined;
   Children: undefined;
   AddChild: undefined;
+  InviteChild: undefined;
   Tasks: { childId: string; childName: string };
 };
 
@@ -52,6 +54,11 @@ export function RootNavigator() {
         name="AddChild"
         component={AddChildScreen}
         options={{ title: "Add Child" }}
+      />
+      <Stack.Screen
+        name="InviteChild"
+        component={InviteChildScreen}
+        options={{ title: "Invite Child" }}
       />
       <Stack.Screen
         name="Tasks"

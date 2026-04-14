@@ -1,4 +1,5 @@
 com/choresngoals/repository/ChildRepository.class
+com/choresngoals/controller/FamilyController.class
 com/choresngoals/dto/RegisterParentRequest.class
 com/choresngoals/security/AuthenticatedUser.class
 com/choresngoals/service/ForbiddenOperationException.class
@@ -15,6 +16,7 @@ com/choresngoals/service/RefreshTokenService.class
 com/choresngoals/service/ChildManagementService.class
 com/choresngoals/dto/AuthenticatedUserResponse.class
 com/choresngoals/config/ApiExceptionHandler$ApiErrorResponse.class
+com/choresngoals/entity/ChildInvitation.class
 com/choresngoals/service/ParentAuthenticationService.class
 com/choresngoals/repository/RefreshTokenRepository.class
 com/choresngoals/repository/UserRepository.class
@@ -22,12 +24,16 @@ com/choresngoals/controller/HealthController$HealthResponse.class
 com/choresngoals/dto/CreateChildRequest.class
 com/choresngoals/entity/FamilyMembership.class
 com/choresngoals/ChoresNGoalsApplication.class
+com/choresngoals/entity/ChildInvitationStatus.class
 com/choresngoals/repository/FamilyRepository.class
+com/choresngoals/service/FamilyQueryService.class
+com/choresngoals/dto/FamilyResponse.class
 com/choresngoals/repository/FamilyMembershipRepository.class
 com/choresngoals/controller/ChildController.class
 com/choresngoals/service/ChildNotFoundException.class
 com/choresngoals/security/JwtTokenService.class
 com/choresngoals/entity/RefreshToken.class
+com/choresngoals/controller/ChildInvitationController.class
 com/choresngoals/security/JwtAuthenticationFilter.class
 com/choresngoals/controller/HealthController.class
 com/choresngoals/service/DuplicateEmailException.class
@@ -35,8 +41,12 @@ com/choresngoals/dto/AuthResponse.class
 com/choresngoals/dto/UserResponse.class
 com/choresngoals/config/ApiExceptionHandler.class
 com/choresngoals/security/SecurityConfig.class
+com/choresngoals/repository/ChildInvitationRepository.class
 com/choresngoals/security/RestAuthenticationEntryPoint.class
 com/choresngoals/controller/ParentAuthController.class
 com/choresngoals/dto/LoginRequest.class
+com/choresngoals/dto/CreateChildInvitationRequest.class
+com/choresngoals/dto/ChildInvitationResponse.class
 com/choresngoals/dto/ChildResponse.class
 com/choresngoals/security/PasswordConfig.class
+com/choresngoals/service/ChildInvitationService.class

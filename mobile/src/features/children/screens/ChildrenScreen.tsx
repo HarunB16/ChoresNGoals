@@ -51,9 +51,14 @@ export function ChildrenScreen({ navigation }: Props) {
           <Text style={styles.title}>Children</Text>
           <Text style={styles.subtitle}>Manage the children linked to your parent account.</Text>
         </View>
-        <Pressable style={styles.addButton} onPress={() => navigation.navigate("AddChild")}>
-          <Text style={styles.addButtonText}>Add</Text>
-        </Pressable>
+        <View style={styles.headerActions}>
+          <Pressable style={styles.secondaryButton} onPress={() => navigation.navigate("InviteChild")}>
+            <Text style={styles.secondaryButtonText}>Invite</Text>
+          </Pressable>
+          <Pressable style={styles.addButton} onPress={() => navigation.navigate("AddChild")}>
+            <Text style={styles.addButtonText}>Add</Text>
+          </Pressable>
+        </View>
       </View>
 
       {isLoading ? (
@@ -140,6 +145,10 @@ const styles = StyleSheet.create({
   headerText: {
     flex: 1
   },
+  headerActions: {
+    flexDirection: "row",
+    gap: 8
+  },
   title: {
     color: "#1f2937",
     fontSize: 28,
@@ -159,6 +168,18 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     color: "#ffffff",
+    fontSize: 15,
+    fontWeight: "600"
+  },
+  secondaryButton: {
+    borderColor: "#2563eb",
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 10
+  },
+  secondaryButtonText: {
+    color: "#2563eb",
     fontSize: 15,
     fontWeight: "600"
   },
