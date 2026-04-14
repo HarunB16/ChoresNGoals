@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(restAuthenticationEntryPoint))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/health").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/parents/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/parents/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/auth/children/invitations/validate").permitAll()
